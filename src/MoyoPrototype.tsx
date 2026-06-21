@@ -216,7 +216,7 @@ function S1_Alimtalk({ go }) {
               {/* 버튼 */}
               <div style={{ padding: "8px 12px 14px", display: "grid", gap: 8 }}>
                 <button onClick={() => go(1, "mine")} style={btnGhost}>신청한 요금제 확인</button>
-                <button onClick={() => go(1, "other")} style={btnSolid}>다른 요금제 확인</button>
+                <button onClick={() => go(1, "other")} style={btnGhost}>다른 요금제 확인</button>
               </div>
             </div>
             <div style={{ fontSize: 10, color: "#5b6b7a", marginTop: 4, marginLeft: 4 }}>오전 9:41</div>
