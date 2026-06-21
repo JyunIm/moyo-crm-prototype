@@ -7,10 +7,10 @@ import {
 
 /* ============================== 디자인 토큰 ============================== */
 const T = {
-  violet: "#6E2EF4",
-  violetDeep: "#4516B8",
-  violetSoft: "#EDE7FE",
-  violetLine: "#DDD0FB",
+  violet: "#516AEC",
+  violetDeep: "#2F41B5",
+  violetSoft: "#ECF0FE",
+  violetLine: "#D2DBFA",
   kakao: "#FEE500",
   kakaoInk: "#1A1700",
   ink: "#17151F",
