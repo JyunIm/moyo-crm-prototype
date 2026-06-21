@@ -107,13 +107,15 @@ const ANNOT = {
   },
 };
 
-/* 전략1 대안 요금제 (B2B 방어 혜택을 1순위로) */
-const ALT_PLANS = [
-  {
-    kind: "defense", badge: "통신사 제공", icon: ShieldCheck,
-    name: "현재 할인 3개월 연장", carrier: "기존 통신사 방어 혜택",
-    data: "11GB+ / 통화 무제한", price: 19000, sub: "지금 요금 그대로 3개월 더",
-  },
+/* 전략1 대안 요금제
+   ① 지금 쓰는 통신사(KT망) 그대로 갈아타는 안전한 선택
+   ② 현재와 비슷한 스펙(11GB 안팎 · 통화 무제한)의 더 저렴한 요금제 */
+const SAME_CARRIER = {
+  kind: "same", badge: "KT망 그대로", icon: ShieldCheck,
+  name: "KT망 11GB+ 그대로", carrier: "KT M모바일",
+  data: "11GB+ / 통화 무제한", price: 18700, sub: "쓰던 통신망 · 번호 그대로",
+};
+const SIMILAR_PLANS = [
   {
     kind: "deal", badge: "모요 단독 특가", icon: Sparkles,
     name: "0원 요금제 11GB+", carrier: "U+유모바일",
@@ -121,8 +123,13 @@ const ALT_PLANS = [
   },
   {
     kind: "pop", badge: "인기", icon: Crown,
-    name: "평생할인 71GB+", carrier: "KT스카이라이프",
-    data: "71GB+ / 통화 무제한", price: 16300, sub: "평생 같은 가격",
+    name: "넉넉 15GB+", carrier: "KT스카이라이프",
+    data: "15GB+ / 통화 무제한", price: 16300, sub: "데이터 더 넉넉하게",
+  },
+  {
+    kind: "save", badge: "최저가", icon: Wallet,
+    name: "가성비 11GB", carrier: "LG헬로비전",
+    data: "11GB / 통화 무제한", price: 9900, sub: "딱 지금만큼, 최저가",
   },
 ];
 
@@ -281,30 +288,21 @@ function S1_Landing({ entry, go }) {
         <div style={{ fontSize: 15, fontWeight: 900, color: T.ink, margin: "8px 2px 12px" }}>
           지금 바로 갈아탈 수 있어요
         </div>
+
+        {/* ① 같은 통신사 그대로 */}
+        <SubLabel>현재 통신사(KT망) 그대로</SubLabel>
         <div style={{ display: "grid", gap: 11 }}>
-          {ALT_PLANS.map((p, i) => {
-            const Icon = p.icon;
-            const accent = p.kind === "defense" ? T.inkSoft : p.kind === "deal" ? T.violet : "#E8A400";
-            const accentBg = p.kind === "defense" ? "#EFEEF4" : p.kind === "deal" ? T.violetSoft : "#FFF3D6";
-            return (
-              <button key={i} onClick={() => go(2)} style={{
-                textAlign: "left", background: "#fff", border: `1px solid ${T.line}`,
-                borderRadius: 16, padding: 15, cursor: "pointer", width: "100%",
-                boxShadow: "0 2px 8px rgba(20,18,40,.03)" }}>
-                <Pill bg={accentBg} color={accent}><Icon size={12} /> {p.badge}</Pill>
-                <div style={{ fontSize: 15.5, fontWeight: 800, color: T.ink, marginTop: 9 }}>{p.name}</div>
-                <div style={{ fontSize: 12, color: T.inkSoft, marginTop: 2 }}>{p.carrier} · {p.data}</div>
-                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between",
-                  marginTop: 12 }}>
-                  <span style={{ fontSize: 11.5, color: T.inkFaint }}>{p.sub}</span>
-                  <span style={{ fontSize: 20, fontWeight: 900, color: p.price === 0 ? T.violet : T.ink }}>
-                    {p.price === 0 ? "0원" : won(p.price)}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
+          <PlanCard p={SAME_CARRIER} onClick={() => go(2)} />
         </div>
+
+        {/* ② 비슷한 스펙, 더 저렴하게 */}
+        <SubLabel style={{ marginTop: 18 }}>비슷한 요금제, 더 저렴하게</SubLabel>
+        <div style={{ display: "grid", gap: 11 }}>
+          {SIMILAR_PLANS.map((p, i) => (
+            <PlanCard key={i} p={p} onClick={() => go(2)} />
+          ))}
+        </div>
+
         <div style={{ fontSize: 11, color: T.inkFaint, textAlign: "center", marginTop: 14, lineHeight: 1.6 }}>
           모든 버튼은 같은 페이지로 연결돼요.<br />
           ‘다른 요금제 확인’으로 들어오면 이 목록으로 자동 이동됩니다.
@@ -766,6 +764,45 @@ export default function MoyoPrototype() {
         }
       `}</style>
     </div>
+  );
+}
+
+/* 전략1 대안 요금제 소제목 */
+function SubLabel({ children, style }) {
+  return (
+    <div style={{ fontSize: 12, fontWeight: 800, color: T.inkSoft,
+      margin: "0 2px 8px", ...style }}>
+      {children}
+    </div>
+  );
+}
+
+/* 전략1 대안 요금제 카드 */
+function PlanCard({ p, onClick }) {
+  const Icon = p.icon;
+  const ACCENT = {
+    same: [T.inkSoft, "#EFEEF4"],
+    deal: [T.violet, T.violetSoft],
+    pop: ["#E8A400", "#FFF3D6"],
+    save: [T.save, T.saveSoft],
+  };
+  const [accent, accentBg] = ACCENT[p.kind] || ACCENT.same;
+  return (
+    <button onClick={onClick} style={{
+      textAlign: "left", background: "#fff", border: `1px solid ${T.line}`,
+      borderRadius: 16, padding: 15, cursor: "pointer", width: "100%",
+      boxShadow: "0 2px 8px rgba(20,18,40,.03)" }}>
+      <Pill bg={accentBg} color={accent}><Icon size={12} /> {p.badge}</Pill>
+      <div style={{ fontSize: 15.5, fontWeight: 800, color: T.ink, marginTop: 9 }}>{p.name}</div>
+      <div style={{ fontSize: 12, color: T.inkSoft, marginTop: 2 }}>{p.carrier} · {p.data}</div>
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between",
+        marginTop: 12 }}>
+        <span style={{ fontSize: 11.5, color: T.inkFaint }}>{p.sub}</span>
+        <span style={{ fontSize: 20, fontWeight: 900, color: p.price === 0 ? T.violet : T.ink }}>
+          {p.price === 0 ? "0원" : won(p.price)}
+        </span>
+      </div>
+    </button>
   );
 }
 
