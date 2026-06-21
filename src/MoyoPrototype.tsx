@@ -64,7 +64,7 @@ const STRATS = {
     tag: "Win-back & Acquisition",
     goal: "손실 회피 편향 자극으로 심리 장벽↓ · 첫 개통 전환 극대화",
     target: "개통 이력 없는 유저 · 2개월+ 휴면 유저",
-    steps: ["진단 푸시", "누수 계산기", "결과 · 개통"],
+    steps: ["진단 친구톡", "누수 계산기", "결과 · 개통"],
   },
 };
 
@@ -358,33 +358,59 @@ function S1_Done() {
 /* ============================== 전략 2 화면 ============================== */
 function S2_Push({ go }) {
   return (
-    <div style={{ background: `linear-gradient(180deg,#2A1066,#120A2E)`, height: "100%",
-      position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", inset: 0, opacity: .4,
-        background: "radial-gradient(420px 220px at 70% 8%, rgba(110,46,244,.55), transparent)" }} />
-      <div style={{ position: "relative", paddingTop: 40, textAlign: "center", color: "#fff" }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,.7)" }}>잠금화면</div>
-        <div style={{ fontSize: 54, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1 }}>9:41</div>
-        <div style={{ fontSize: 13, color: "rgba(255,255,255,.7)", marginTop: 4 }}>6월 18일 목요일</div>
+    <div style={{ background: "#B2C7DA", minHeight: "100%", paddingBottom: 24 }}>
+      {/* 카톡 헤더 */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 16px 12px" }}>
+        <ChevronLeft size={20} color={T.kakaoInk} />
+        <span style={{ fontWeight: 800, color: T.kakaoInk, fontSize: 15 }}>모요(모두의요금제)</span>
       </div>
-      {/* 푸시 배너 */}
-      <div style={{ position: "relative", margin: "30px 14px 0", animation: "slideDown .5s ease" }}>
-        <div style={{ background: "rgba(255,255,255,.92)", backdropFilter: "blur(8px)",
-          borderRadius: 20, padding: 15, boxShadow: "0 12px 30px rgba(0,0,0,.3)" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 9 }}>
-            <div style={{ width: 22, height: 22, borderRadius: 7, background: T.violet,
-              display: "grid", placeItems: "center", color: "#fff", fontWeight: 900, fontSize: 9 }}>모요</div>
-            <span style={{ fontSize: 12, fontWeight: 800, color: T.ink }}>모요 · 지금</span>
+      <div style={{ padding: "4px 16px" }}>
+        <div style={{ fontSize: 11, color: "#5b6b7a", textAlign: "center", marginBottom: 12 }}>
+          오늘 · 친구톡 도착
+        </div>
+        <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+          {/* 채널 프로필 (모요) */}
+          <div style={{ width: 36, height: 36, borderRadius: 999, background: T.violet,
+            display: "grid", placeItems: "center", flexShrink: 0, fontWeight: 900,
+            color: "#fff", fontSize: 12 }}>모요</div>
+          <div style={{ flex: 1 }}>
+            {/* 채널명 */}
+            <div style={{ fontSize: 12, fontWeight: 800, color: "#3a3340",
+              marginBottom: 5, marginLeft: 2 }}>모요(모두의요금제)</div>
+            {/* 친구톡 카드 */}
+            <div style={{ background: "#fff", borderRadius: "4px 16px 16px 16px",
+              overflow: "hidden", boxShadow: "0 2px 10px rgba(0,0,0,.08)" }}>
+              {/* 마케팅 이미지 배너 + 광고 표기 */}
+              <div style={{ position: "relative", height: 132,
+                background: "linear-gradient(135deg,#2A1066,#6E2EF4)",
+                display: "grid", placeItems: "center", overflow: "hidden" }}>
+                <div style={{ position: "absolute", inset: 0, opacity: .6,
+                  background: "radial-gradient(220px 120px at 72% 18%, rgba(255,255,255,.28), transparent)" }} />
+                <span style={{ position: "absolute", top: 10, left: 10, fontSize: 10, fontWeight: 800,
+                  color: "#fff", background: "rgba(0,0,0,.28)", padding: "2px 8px", borderRadius: 999 }}>광고</span>
+                <div style={{ position: "relative", textAlign: "center", color: "#fff" }}>
+                  <div style={{ fontSize: 42 }}>💸</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, marginTop: 4,
+                    color: "rgba(255,255,255,.92)", letterSpacing: "-0.01em" }}>통신비 누수 진단</div>
+                </div>
+              </div>
+              {/* 본문 */}
+              <div style={{ padding: "15px 15px 6px" }}>
+                <div style={{ fontSize: 15, fontWeight: 800, color: T.ink, lineHeight: 1.45,
+                  letterSpacing: "-0.02em" }}>
+                  매달 쓰지도 않고<br />버려지는 내 데이터 💸
+                </div>
+                <p style={{ fontSize: 13, color: T.inkSoft, lineHeight: 1.6, marginTop: 8 }}>
+                  돈으로 환산하면 얼마일까? 1분 만에 내 통신비 누수액을 진단해 보세요.
+                </p>
+              </div>
+              {/* 버튼 */}
+              <div style={{ padding: "8px 12px 14px" }}>
+                <button onClick={() => go(1)} style={btnSolid}>내 통신비 누수액 진단하기</button>
+              </div>
+            </div>
+            <div style={{ fontSize: 10, color: "#5b6b7a", marginTop: 4, marginLeft: 4 }}>오전 9:41</div>
           </div>
-          <div style={{ fontSize: 14.5, fontWeight: 800, color: T.ink, lineHeight: 1.45 }}>
-            매달 쓰지도 않고 버려지는 내 데이터 💸
-          </div>
-          <p style={{ fontSize: 12.5, color: T.inkSoft, lineHeight: 1.55, marginTop: 5 }}>
-            돈으로 환산하면 얼마일까? 1분 만에 내 통신비 누수액을 진단해 보세요.
-          </p>
-          <button onClick={() => go(1)} style={{ ...btnSolid, marginTop: 12 }}>
-            내 통신비 누수액 진단하기
-          </button>
         </div>
       </div>
     </div>
