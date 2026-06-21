@@ -9,7 +9,13 @@
 
 ## 데모
 
-GitHub Pages: `main` 브랜치에 푸시하면 자동 배포됩니다.
+GitHub Pages로 배포됩니다. 코드를 수정한 뒤 아래 명령으로 재배포합니다.
+
+```bash
+npm run deploy
+```
+
+`gh-pages` 브랜치에 빌드 결과물이 올라가고, 저장소 Settings → Pages 소스가 `gh-pages` 브랜치로 지정되어 서빙됩니다.
 
 ## 로컬 실행
 
