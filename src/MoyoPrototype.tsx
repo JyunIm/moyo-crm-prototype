@@ -63,7 +63,7 @@ const STRATS = {
     title: "‘통신비 누수’ 진단 캠페인",
     tag: "Win-back & Acquisition",
     goal: "손실 회피 편향 자극으로 심리 장벽↓ · 첫 개통 전환 극대화",
-    target: "개통 이력 없는 유저 · 2개월+ 휴면 유저",
+    target: "개통 이력 없는 유저",
     steps: ["진단 친구톡", "누수 계산기", "결과 · 개통"],
   },
 };
