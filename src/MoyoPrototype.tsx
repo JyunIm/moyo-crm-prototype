@@ -172,20 +172,25 @@ function S1_Alimtalk({ go }) {
       {/* 카톡 헤더 */}
       <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 16px 12px" }}>
         <ChevronLeft size={20} color={T.kakaoInk} />
-        <span style={{ fontWeight: 800, color: T.kakaoInk, fontSize: 15 }}>모요 모두의 요금제</span>
+        <span style={{ fontWeight: 800, color: T.kakaoInk, fontSize: 15 }}>모요(모두의요금제)</span>
       </div>
       <div style={{ padding: "4px 16px" }}>
         <div style={{ fontSize: 11, color: "#5b6b7a", textAlign: "center", marginBottom: 12 }}>
           오늘 · 알림톡 도착
         </div>
-        <div style={{ display: "flex", gap: 8, alignItems: "flex-end" }}>
-          <div style={{ width: 34, height: 34, borderRadius: 12, background: T.violet,
+        <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+          {/* 채널 프로필 (모요) */}
+          <div style={{ width: 36, height: 36, borderRadius: 999, background: T.violet,
             display: "grid", placeItems: "center", flexShrink: 0, fontWeight: 900,
-            color: "#fff", fontSize: 13 }}>모요</div>
+            color: "#fff", fontSize: 12 }}>모요</div>
           <div style={{ flex: 1 }}>
+            {/* 채널명 */}
+            <div style={{ fontSize: 12, fontWeight: 800, color: "#3a3340",
+              marginBottom: 5, marginLeft: 2 }}>모요(모두의요금제)</div>
             {/* 알림톡 카드 */}
             <div style={{ background: "#fff", borderRadius: "4px 16px 16px 16px",
               overflow: "hidden", boxShadow: "0 2px 10px rgba(0,0,0,.08)" }}>
+              {/* 노란 헤더 */}
               <div style={{ background: T.kakao, padding: "9px 14px", display: "flex",
                 alignItems: "center", gap: 6 }}>
                 <Bell size={13} color={T.kakaoInk} />
@@ -193,16 +198,22 @@ function S1_Alimtalk({ go }) {
                 <span style={{ marginLeft: "auto", fontSize: 10, fontWeight: 800,
                   color: T.red, background: "#fff", padding: "2px 7px", borderRadius: 999 }}>D-10</span>
               </div>
-              <div style={{ padding: "16px 15px 6px" }}>
-                <div style={{ fontSize: 15.5, fontWeight: 800, color: T.ink, lineHeight: 1.45,
+              {/* 헤딩 밴드 + 벨 */}
+              <div style={{ background: "#F4F5F7", padding: "16px 15px", display: "flex",
+                alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+                <div style={{ fontSize: 16, fontWeight: 800, color: T.ink, lineHeight: 1.4,
                   letterSpacing: "-0.02em" }}>
-                  곧 통신비 할인이<br />종료됩니다 🔔
+                  곧 통신비 할인이<br />종료됩니다
                 </div>
-                <p style={{ fontSize: 13, color: T.inkSoft, lineHeight: 1.6, marginTop: 10 }}>
-                  고객님이 모요에서 개통한 요금제의 프로모션 할인이 <b style={{ color: T.ink }}>10일 뒤 종료</b>돼요.
-                  다음 달부터 요금이 인상되니 미리 확인해 보세요!
+                <span style={{ fontSize: 32, flexShrink: 0 }}>🔔</span>
+              </div>
+              {/* 본문 */}
+              <div style={{ padding: "16px 15px 6px" }}>
+                <p style={{ fontSize: 13.5, color: T.inkSoft, lineHeight: 1.7 }}>
+                  고객님, 곧 통신비 할인이 종료되어 다음 달부터 요금이 인상되니 미리 확인하세요.
                 </p>
               </div>
+              {/* 버튼 */}
               <div style={{ padding: "8px 12px 14px", display: "grid", gap: 8 }}>
                 <button onClick={() => go(1, "mine")} style={btnGhost}>신청한 요금제 확인</button>
                 <button onClick={() => go(1, "other")} style={btnSolid}>다른 요금제 확인</button>
@@ -743,7 +754,6 @@ export default function MoyoPrototype() {
             <div style={{ marginTop: 16, paddingTop: 16, borderTop: `1px solid ${T.line}`,
               display: "grid", gap: 12 }}>
               <AnnotRow icon="📊" label="추적 지표 (Analysis)" text={a.metric} color={T.violet} />
-              <AnnotRow icon="🚀" label="추가 개선 가능 요소" text={a.next} color={T.save} />
             </div>
           </div>
 
